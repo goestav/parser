@@ -80,14 +80,19 @@ export interface Newline extends Literal {
   value: string;
 }
 
-export interface BreakingChange extends Literal {
+export interface BreakingChangeFooter extends Literal {
   type: 'breaking-change';
-  value: '!' | 'BREAKING-CHANGE' | 'BREAKING CHANGE';
+  value: 'BREAKING-CHANGE' | 'BREAKING CHANGE';
+}
+
+export interface BreakingChangeSummary extends Literal {
+  type: 'breaking-change';
+  value: '!';
 }
 
 export interface Summary extends Parent {
   type: 'summary';
-  children: (Type | Scope | Separator)[];
+  children: (Type | Scope | BreakingChangeSummary | Separator)[];
 }
 
 export interface Type extends Literal {
@@ -117,7 +122,7 @@ export interface Footer extends Parent {
 
 export interface Token extends Parent {
   type: 'token';
-  children: (Type | Scope | BreakingChange)[];
+  children: (Type | Scope | BreakingChangeFooter)[];
 }
 
 export interface Value extends Parent {
